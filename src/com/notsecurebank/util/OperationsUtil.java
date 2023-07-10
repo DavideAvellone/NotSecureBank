@@ -38,11 +38,7 @@ public class OperationsUtil {
                 }
             }
 
-            Account[] cookieAccounts = null;
-            if (notSecureBankCookie == null)
-                cookieAccounts = user.getAccounts();
-            else
-                cookieAccounts = Account.fromBase64List(notSecureBankCookie.getValue());
+            Account[] cookieAccounts = user.getAccounts();
 
             try {
                 accountId = Long.parseLong(accountIdString);
