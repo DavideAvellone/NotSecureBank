@@ -76,12 +76,19 @@ public class AdminAPI extends NotSecureBankAPI {
     public Response addUser(String bodyJSON, @Context HttpServletRequest request) throws IOException {
         LOG.info("addUser");
 
+        Object admObj = request.getSession().getAttribute(ServletUtil.SESSION_ATTR_ADMIN_KEY);
+
         JSONObject bodyJson = new JSONObject();
 
         // Checking if user is logged in
 
         if (!ServletUtil.isLoggedin(request)) {
             String response = "{\"loggedIn\" : \"false\"}";
+            return Response.status(400).entity(response).build();
+        }
+
+        if (!(admObj != null && admObj instanceof String && ((String) admObj).equals(ServletUtil.SESSION_ATTR_ADMIN_VALUE))) {
+            String response = "{\"admin_user\" : \"false\"}";
             return Response.status(400).entity(response).build();
         }
 
