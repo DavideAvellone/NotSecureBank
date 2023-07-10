@@ -13,6 +13,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.wink.json4j.JSONException;
 import org.apache.wink.json4j.JSONObject;
+import org.apache.commons.text.StringEscapeUtils;
 
 import com.notsecurebank.model.Feedback;
 import com.notsecurebank.util.OperationsUtil;
@@ -46,6 +47,7 @@ public class FeedbackAPI extends NotSecureBankAPI {
 
         try {
             name = (String) myJson.get("name");
+            name = StringEscapeUtils.escapeHtml(name);
             email = (String) myJson.get("email");
             subject = (String) myJson.get("subject");
             comments = (String) myJson.get("message");
